@@ -46,9 +46,3 @@ No modules.
 | scope | The scope of this Web ACL. Valid options: CLOUDFRONT, REGIONAL. | `string` | n/a | yes |
 | tags | A mapping of tags to assign to the WAFv2 ACL. | `map(string)` | `{}` | no |
 
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| web\_acl\_id | The ARN of the WAF WebACL. |
-<!-- END_TF_DOCS -->
