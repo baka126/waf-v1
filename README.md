@@ -8,85 +8,7 @@ Creates AWS WAFv2 ACL and supports the following
 - Global IP Rate limiting
 - Custom IP rate limiting for different URLs
 
-## Usage with CloudFront
 
-**Note: The Terraform AWS provider needs to be associated with the us-east-1 region to use with CloudFront.**
-
-```hcl
-module "cloudfront_wafv2" {
-  source  = "trussworks/wafv2/aws"
-  version = "0.0.1"
-
-  name  = "cloudfront-web-acl"
-  scope = "CLOUDFRONT"
-}
-```
-
-## Usage with Application Load Balancer (ALB)
-
-```hcl
-module "alb_wafv2" {
-  source  = "trussworks/wafv2/aws"
-  version = "0.0.1"
-
-  name  = "alb-web-acl"
-  scope = "REGIONAL"
-
-  alb_arn       = aws_lb.alb.arn
-  associate_alb = true
-}
-```
-
-## Usage with Logging Configuraion of CloudWatchLogs
-
-```hcl
-module "alb_wafv2" {
-  source  = "trussworks/wafv2/aws"
-  version = "0.0.1"
-
-  name  = "cloudfront-web-acl"
-  scope = "CLOUDFRONT"
-
-  enable_logging = true
-  log_destination_arns = [
-    aws_cloudwatch_log_group.logs.arn
-  ]
-}
-```
-
-## Usage blocking IP Sets
-
-```hcl
-resource "aws_wafv2_ip_set" "ipset" {
-  name = "blocked_ips"
-
-  scope              = "REGIONAL"
-  ip_address_version = "IPV4"
-
-  addresses = [
-    "1.2.3.4/32",
-    "5.6.7.8/32"
-  ]
-}
-
-module "wafv2" {
-  source = "../../"
-
-  name   = "wafv2"
-  scope = "REGIONAL"
-
-  ip_sets_rule = [
-    {
-      name       = "blocked_ips"
-      action     = "block"
-      priority   = 1
-      ip_set_arn = aws_wafv2_ip_set.ipset.arn
-    }
-  ]
-}
-```
-
-<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -104,13 +26,6 @@ module "wafv2" {
 
 No modules.
 
-## Resources
-
-| Name | Type |
-|------|------|
-| [aws_wafv2_web_acl.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl) | resource |
-| [aws_wafv2_web_acl_association.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl_association) | resource |
-| [aws_wafv2_web_acl_logging_configuration.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/wafv2_web_acl_logging_configuration) | resource |
 
 ## Inputs
 
@@ -137,10 +52,6 @@ No modules.
 |------|-------------|
 | web\_acl\_id | The ARN of the WAF WebACL. |
 <!-- END_TF_DOCS -->
-
-## Developer Setup
-
-Install dependencies (macOS)
 
 ```shell
 brew install pre-commit go terraform terraform-docs
