@@ -1,6 +1,6 @@
-# terraform-aws-wafv2
+# AWS WAF-Module
 
-Creates AWS WAFv2 ACL and supports the following
+Available Functions
 
 - AWS Managed Rule Sets
 - Associating with Application Load Balancers (ALB)
