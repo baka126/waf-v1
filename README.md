@@ -52,8 +52,3 @@ No modules.
 |------|-------------|
 | web\_acl\_id | The ARN of the WAF WebACL. |
 <!-- END_TF_DOCS -->
-
-```shell
-brew install pre-commit go terraform terraform-docs
-pre-commit install --install-hooks
-```
