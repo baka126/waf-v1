@@ -259,3 +259,7 @@ resource "aws_wafv2_web_acl" "main" {
       name          = header_name
       header_value  = var.filtered_header_rule.header_value
       action        = var.filtered_header_rule
+}
+]
+
+}
